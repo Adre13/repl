@@ -5,17 +5,23 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String str1;
         str1 = in.nextLine();
-        if(str1.equals("")){
-            System.out.println("\n");
-        }else if(str1.equals("/exit")){
-            System.out.println("Bye!");
-        }else{
-            String[] temp = str1.split(" ");
-            if(temp.length == 1){
-                System.out.println(Integer.parseInt(temp[0]));
-            }else{
-                System.out.println(Integer.parseInt(temp[0]) + Integer.parseInt(temp[1]));
+        while (true) {
+            if (str1.equals("")) {
+                System.out.println("\n");
+            } else if (str1.equals("/exit")) {
+                System.out.println("Bye!");
+                break;
+            } else if (str1.equals("/help")) {
+                System.out.println("The program calculate the sum of number");
+            } else {
+                String[] temp = str1.split(" ");
+                int result = 0;
+                for (int i = 0; i < temp.length; i++) {
+                    result += Integer.parseInt(temp[i]);
+                }
+                System.out.println(result);
             }
+            str1 = in.nextLine();
         }
     }
 
