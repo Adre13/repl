@@ -1,28 +1,43 @@
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Scanner in = new Scanner(System.in);
-        String str1;
-        str1 = in.nextLine();
-        while (true) {
-            if (str1.equals("")) {
-                System.out.println("\n");
-            } else if (str1.equals("/exit")) {
-                System.out.println("Bye!");
-                break;
-            } else if (str1.equals("/help")) {
-                System.out.println("The program calculate the sum of number");
-            } else {
-                String[] temp = str1.split(" ");
-                int result = 0;
-                for (int i = 0; i < temp.length; i++) {
-                    result += Integer.parseInt(temp[i]);
-                }
-                System.out.println(result);
+        String str1 = in.nextLine();
+        while (!str1.equals("/exit")) {
+            switch (str1){
+                case "":
+                    System.out.println();
+                    break;
+                case "/help":
+                    help();
+                    break;
+                default:
+                    System.out.println(calculate(str1));
             }
             str1 = in.nextLine();
         }
+        System.out.println("Bye!");
     }
 
+    private static void help(){
+        System.out.println("The program calculate your expression");
+        System.out.println("It know how to addition and subtraction");
+    }
+
+    private static int calculate(String str) throws Exception{
+        while (str.contains("--") || str.contains("++") || str.contains("  ") || str.contains("+-") || str.contains("-+") ){
+            str = str.replace("--", "+");
+            str = str.replace("++", "+");
+            str = str.replace("  ", " ");
+            str = str.replace("+-","-");
+            str = str.replace("-+", "-");
+        }
+        ScriptEngineManager factory = new ScriptEngineManager();
+        ScriptEngine engine = factory.getEngineByName("JavaScript");
+        Object result = engine.eval(str);
+        return (int) result;
+    }
 }
