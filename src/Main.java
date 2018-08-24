@@ -3,28 +3,33 @@ import javax.script.ScriptEngineManager;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String str1 = in.nextLine();
         while (!str1.equals("/exit")) {
-            switch (str1){
-                case "":
-                    System.out.println();
-                    break;
-                case "/help":
-                    help();
-                    break;
-                default:
+            if(str1.equals("")){
+                System.out.println();
+            }else if(str1.startsWith("/")){
+                help(str1);
+            }else {
+                try {
                     System.out.println(calculate(str1));
+                }catch (Exception e){
+                    System.out.println("Invalid expression");
+                }
             }
             str1 = in.nextLine();
         }
         System.out.println("Bye!");
     }
 
-    private static void help(){
-        System.out.println("The program calculate your expression");
-        System.out.println("It know how to addition and subtraction");
+    private static void help(String str){
+        if(str.equals("/help")) {
+            System.out.println("The program calculate your expression");
+            System.out.println("It know how to addition and subtraction");
+        }else{
+            System.out.println("Unknown command");
+        }
     }
 
     private static int calculate(String str) throws Exception{
