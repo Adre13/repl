@@ -57,7 +57,7 @@ public class Main {
     private static void analyzing(String input) {
         if (input.contains("=") && input.indexOf("=") == input.lastIndexOf("=")) {  // input includes only one "="
             String[] temp = input.split("=");
-            temp[0] = temp[0].trim();
+            temp[0] = temp[0].trim();                // remove " "
             temp[1] = temp[1].trim();
             if (!temp[0].matches("[a-zA-Z]+")) { //  is number in left part
                 System.out.println("Invalid identifier");
